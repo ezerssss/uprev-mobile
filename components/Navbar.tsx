@@ -4,12 +4,17 @@ import {
     ChevronLeftIcon,
     ChevronRightIcon,
 } from 'react-native-heroicons/outline';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../types/routes.type';
+import auth from '../firebase/auth';
 
 const Navbar = () => {
-    const navigation = useNavigation();
+    const navigation =
+        useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     function handleLogout() {
-        navigation.navigate('Login' as never);
+        auth.signOut();
+        navigation.navigate('Login');
     }
 
     function handleBack() {
@@ -17,11 +22,11 @@ const Navbar = () => {
     }
 
     function handleHome() {
-        navigation.navigate('Home' as never);
+        navigation.navigate('Home');
     }
 
     return (
-        <View className="flex-row justify-between items-center py-4 bg-white">
+        <View className="flex-row justify-between items-center p-4 bg-white">
             <TouchableOpacity onPress={handleHome}>
                 <View className="flex-row gap-1 items-center">
                     <Image
