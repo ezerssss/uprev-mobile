@@ -1,6 +1,7 @@
 import React, { useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
+import Navbar from './Navbar';
 
 interface PropsInterface {
     children: JSX.Element | JSX.Element[];
@@ -16,9 +17,10 @@ const ContentWrapper = (props: PropsInterface) => {
     }, []);
 
     return (
-        <View className="flex-1 justify-center items-center bg-white">
-            {children}
-        </View>
+        <>
+            <Navbar />
+            <ScrollView className="flex-1 bg-white">{children}</ScrollView>
+        </>
     );
 };
 
