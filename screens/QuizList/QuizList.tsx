@@ -14,10 +14,10 @@ import {
     SnapshotFirebaseQuiz,
     SnapshotFirebaseQuizWithScores,
 } from '../../interfaces/quiz';
-import { UserContext } from '../../App';
 import { collection, doc, getDoc, onSnapshot, query } from 'firebase/firestore';
 import db from '../../firebase/db';
 import Quiz from './components/Quiz';
+import UserContext from '../../context/UserContext';
 
 const QuizList = ({
     route,

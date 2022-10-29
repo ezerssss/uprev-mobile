@@ -14,8 +14,8 @@ import {
 } from '../../interfaces/flashcards';
 import { collection, onSnapshot, query } from 'firebase/firestore';
 import db from '../../firebase/db';
-import { UserContext } from '../../App';
 import Flashcard from './components/Flashcard';
+import UserContext from '../../context/UserContext';
 
 const FlashcardsList = ({
     route,

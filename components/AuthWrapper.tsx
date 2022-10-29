@@ -3,7 +3,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { doc, setDoc } from 'firebase/firestore';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { View, Text } from 'react-native';
-import { UserContext } from '../App';
+import UserContext from '../context/UserContext';
 import { Routes } from '../enums/route.enums';
 import auth from '../firebase/auth';
 import db from '../firebase/db';

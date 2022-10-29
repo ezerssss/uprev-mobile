@@ -1,7 +1,7 @@
 import { TouchableOpacity, Text, View } from 'react-native';
 import React, { useContext } from 'react';
 import { SnapshotFirebaseQuizWithScores } from '../../../interfaces/quiz';
-import { UserContext } from '../../../App';
+import UserContext from '../../../context/UserContext';
 
 interface PropsInterface {
     quiz: SnapshotFirebaseQuizWithScores;

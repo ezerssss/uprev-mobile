@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from 'react-native';
 import React, { useContext } from 'react';
 import { SnapshotFlashcard } from '../../../interfaces/flashcards';
-import { UserContext } from '../../../App';
+import UserContext from '../../../context/UserContext';
 
 interface PropsInterface {
     flashcard: SnapshotFlashcard;
