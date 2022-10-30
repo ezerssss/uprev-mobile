@@ -26,7 +26,7 @@ import { errorAlert } from '../../helpers/errors';
 
 const FlashcardsList = ({
     route,
-}: NativeStackScreenProps<RootStackParamList, 'Flashcard'>) => {
+}: NativeStackScreenProps<RootStackParamList, 'FlashcardList'>) => {
     const { subject } = route.params;
     const { user } = useContext(UserContext);
 
@@ -34,7 +34,7 @@ const FlashcardsList = ({
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     function handleQuizzes() {
-        navigation.navigate('Quiz', { subject });
+        navigation.navigate('QuizList', { subject });
     }
 
     const [flashcards, setFlashcards] = useState<SnapshotFlashcard[]>([]);

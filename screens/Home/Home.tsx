@@ -22,7 +22,7 @@ function Home() {
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     function handleSubjectClick(subject: string) {
-        navigation.navigate('Quiz', { subject });
+        navigation.navigate('QuizList', { subject });
     }
 
     return (

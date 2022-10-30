@@ -26,8 +26,11 @@ export default function App() {
                     <Navigator>
                         <Screen name="Home" component={Home} />
                         <Screen name="Login" component={Login} />
-                        <Screen name="Quiz" component={QuizList} />
-                        <Screen name="Flashcard" component={FlashcardsList} />
+                        <Screen name="QuizList" component={QuizList} />
+                        <Screen
+                            name="FlashcardList"
+                            component={FlashcardsList}
+                        />
                     </Navigator>
                 </NavigationContainer>
             </View>

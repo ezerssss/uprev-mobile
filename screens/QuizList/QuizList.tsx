@@ -29,14 +29,14 @@ import { errorAlert } from '../../helpers/errors';
 
 const QuizList = ({
     route,
-}: NativeStackScreenProps<RootStackParamList, 'Quiz'>) => {
+}: NativeStackScreenProps<RootStackParamList, 'QuizList'>) => {
     const { subject } = route.params;
     const { user } = useContext(UserContext);
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
     function handleFlashcards() {
-        navigation.navigate('Flashcard', { subject });
+        navigation.navigate('FlashcardList', { subject });
     }
 
     const [quizzes, setQuizzes] = useState<SnapshotFirebaseQuizWithScores[]>(
