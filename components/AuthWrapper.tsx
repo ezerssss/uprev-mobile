@@ -32,7 +32,7 @@ function AuthWrapper(props: PropsInterface) {
             const noUser = !user;
 
             if (noUser) {
-                navigation.navigate('Login');
+                // navigation.navigate('Login');
                 setIsLoading(false);
                 return;
             }

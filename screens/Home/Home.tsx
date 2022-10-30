@@ -25,6 +25,10 @@ function Home() {
         navigation.navigate('QuizList', { subject });
     }
 
+    function handleCreateQuiz() {
+        navigation.navigate('CreateQuiz');
+    }
+
     return (
         <AuthWrapper>
             <ContentWrapper>
@@ -76,7 +80,10 @@ function Home() {
                                 Flashcard
                             </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity className="rounded-xl p-4 border">
+                        <TouchableOpacity
+                            className="rounded-xl p-4 border"
+                            onPress={handleCreateQuiz}
+                        >
                             <Text className="text-center font-bold">Quiz</Text>
                         </TouchableOpacity>
                     </View>

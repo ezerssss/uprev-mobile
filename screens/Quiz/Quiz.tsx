@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import AuthWrapper from '../../components/AuthWrapper';
 import ContentWrapper from '../../components/ContentWrapper';
@@ -8,7 +8,7 @@ import {
 } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/routes.type';
 import UserContext from '../../context/UserContext';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import db from '../../firebase/db';
 import {
     FirebaseQuiz,
@@ -24,7 +24,7 @@ const Quiz = ({
     route,
 }: NativeStackScreenProps<RootStackParamList, 'Quiz'>) => {
     const { subject, id } = route.params;
-    const { user } = useContext(UserContext);
+    const { user, isUpEmail } = useContext(UserContext);
 
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -36,11 +36,17 @@ const Quiz = ({
 
     useEffect(() => {
         async function getFirestore() {
-            if (!user) return;
-            const { uid } = user;
-
             try {
                 const quizRef = doc(db, 'subjects', subject, 'quizzes', id);
+
+                const quizSnapshot = await getDoc(quizRef);
+                if (!quizSnapshot.exists()) {
+                    throw Error(`Quiz not Found: ${id}`);
+                }
+                setQuiz(quizSnapshot.data() as FirebaseQuiz);
+
+                if (!user) return;
+                const { uid } = user;
                 const scoreRef = doc(
                     db,
                     'users',
@@ -50,12 +56,6 @@ const Quiz = ({
                     'scores',
                     id,
                 );
-
-                const quizSnapshot = await getDoc(quizRef);
-                if (!quizSnapshot.exists()) {
-                    throw Error(`Quiz not Found: ${id}`);
-                }
-                setQuiz(quizSnapshot.data() as FirebaseQuiz);
 
                 const scoreSnapshot = await getDoc(scoreRef);
                 if (scoreSnapshot.exists()) {
@@ -124,8 +124,71 @@ const Quiz = ({
         setAnswers([...answers]);
     }
 
+    function handleCalculateScore(): number {
+        let score = 0;
+        quiz?.questions.forEach(({ number, answer }) => {
+            const userAnswer = answers.find((ans) => ans.number === number);
+
+            if (answer === userAnswer?.answer) {
+                score += 1;
+            }
+        });
+        const quizLength = quiz!.questions.length;
+
+        const isScoreGreaterThanHalf =
+            score >= Math.floor(quizLength / 2) && score !== 0;
+        const isPerfect = score === quizLength;
+        const title = isScoreGreaterThanHalf ? 'Congrats!' : 'Oh no!';
+        const text = isPerfect
+            ? 'You Aced the quiz!'
+            : `Your scored ${score} for this quiz.`;
+
+        Alert.alert(title, text, [{ text: 'OK' }]);
+        setShowAnswers(true);
+
+        return score;
+    }
+
+    async function handleStoreScore(score: number) {
+        const uid = user?.uid;
+        if (!uid) {
+            errorAlert('user uid not found');
+            return;
+        }
+
+        const docRef = doc(db, 'users', uid, 'subjects', subject, 'scores', id);
+
+        try {
+            const object: FirebaseQuizAnswers = {
+                score,
+                answers,
+            };
+
+            await setDoc(docRef, object);
+            setIsAlreadyTaken(true);
+        } catch (error) {
+            errorAlert(error);
+        }
+    }
+
+    function handleFinishQuiz() {
+        const score = handleCalculateScore();
+
+        if (!isAlreadyTaken) {
+            if (isUpEmail) {
+                handleStoreScore(score);
+            } else {
+                Alert.alert(
+                    'Oops.',
+                    'Scores are not recorded for non UP emails.',
+                    [{ text: 'OK' }],
+                );
+            }
+        }
+    }
+
     const renderQuestions = quiz?.questions.map((item, index) => (
-        <View key={item.number} className="mt-5">
+        <View key={item.number} className="mt-9">
             <View className="flex-row gap-1 mb-2">
                 <Text className="text-[16px]">{index + 1}.</Text>
                 <Text className="text-[16px] flex-1">{item.question}</Text>
@@ -165,8 +228,9 @@ const Quiz = ({
                 <View className="mt-8 mb-16">
                     {showElements && (
                         <TouchableOpacity
-                            className="p-3 border bg-green-400 rounded-xl w-24"
+                            className="p-3 border bg-green-300 rounded-xl w-32"
                             disabled={!quiz?.questions.length || isAlreadyTaken}
+                            onPress={handleFinishQuiz}
                         >
                             <Text className="text-center">Finish Quiz</Text>
                         </TouchableOpacity>

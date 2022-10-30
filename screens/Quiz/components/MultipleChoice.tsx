@@ -43,9 +43,9 @@ const MultipleChoice = (props: PropsInterface) => {
                             disabled={showAnswers || !choice}
                             key={`${choice}_${index}`}
                             className={`border p-2 rounded-xl w-[45%] ${
-                                isSelected && !showAnswers && 'bg-slate-500'
-                            } ${isSelectedWrong && 'bg-red-500'} ${
-                                isChoiceCorrectAnswer && 'bg-green-500'
+                                isSelected && !showAnswers && 'bg-slate-300'
+                            } ${isSelectedWrong && 'bg-red-300'} ${
+                                isChoiceCorrectAnswer && 'bg-green-300'
                             }`}
                             onPress={() => onAnswer(choice, number)}
                         >

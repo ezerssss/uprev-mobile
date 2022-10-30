@@ -20,17 +20,27 @@ const Identification = (props: PropsInterface) => {
     return (
         <View className="relative">
             <TextInput
-                className={`px-2 border-b ${
-                    showAnswers && isAnswerCorrect && 'bg-green-500 text-white'
+                multiline
+                className={`p-2 border rounded-xl w-full lg:w-1/2 ${
+                    showAnswers && isAnswerCorrect && 'bg-green-300 text-white'
                 } ${
-                    showAnswers && !isAnswerCorrect && 'bg-red-500 text-white'
+                    showAnswers && !isAnswerCorrect && 'bg-red-300 text-white'
                 }`}
                 editable={!showAnswers}
-                multiline={true}
                 placeholder="Enter answer"
                 value={textValue}
                 onChangeText={(text) => onAnswer(text, number)}
             />
+            {showAnswers && !isAnswerCorrect && (
+                <>
+                    <Text className="text-sm mt-2">Correct answer:</Text>
+                    <TextInput
+                        editable={false}
+                        className="w-full p-2 border outline-none text-black"
+                        value={item.answer}
+                    />
+                </>
+            )}
         </View>
     );
 };

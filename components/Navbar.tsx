@@ -26,7 +26,7 @@ const Navbar = () => {
     }
 
     return (
-        <View className="flex-row justify-between items-center p-4 bg-white">
+        <View className="flex-row justify-between items-center p-4 lg:px-40 bg-white">
             <TouchableOpacity onPress={handleHome}>
                 <View className="flex-row gap-1 items-center">
                     <Image

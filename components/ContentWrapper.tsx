@@ -11,7 +11,9 @@ const ContentWrapper = (props: PropsInterface) => {
     return (
         <>
             <Navbar />
-            <ScrollView className="flex-1 bg-white px-4">{children}</ScrollView>
+            <ScrollView className="flex-1 bg-white px-4 lg:px-40">
+                {children}
+            </ScrollView>
         </>
     );
 };
