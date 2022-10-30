@@ -5,11 +5,12 @@ import UserContext from '../../../context/UserContext';
 
 interface PropsInterface {
     quiz: SnapshotFirebaseQuizWithScores;
+    onDelete: (id: string) => void;
 }
 
 const Quiz = (props: PropsInterface) => {
-    const { quiz } = props;
-    const { title, questions, creator, email, userScore } = quiz;
+    const { quiz, onDelete } = props;
+    const { title, questions, creator, email, userScore, id } = quiz;
     const { user } = useContext(UserContext);
 
     const areButtonsVisible = email === user?.email;
@@ -52,7 +53,7 @@ const Quiz = (props: PropsInterface) => {
                         </TouchableOpacity>
                         <TouchableOpacity
                             className="border p-2 rounded-xl px-4 border-gray-400 bg-red-500"
-                            onPress={handleUserButtons}
+                            onPress={() => onDelete(id)}
                         >
                             <Text className="text-white">Delete</Text>
                         </TouchableOpacity>

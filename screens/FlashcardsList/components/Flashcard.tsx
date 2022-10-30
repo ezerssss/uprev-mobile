@@ -5,11 +5,12 @@ import UserContext from '../../../context/UserContext';
 
 interface PropsInterface {
     flashcard: SnapshotFlashcard;
+    onDelete: (id: string) => void;
 }
 
 const Flashcard = (props: PropsInterface) => {
-    const { flashcard } = props;
-    const { title, creator, email } = flashcard;
+    const { flashcard, onDelete } = props;
+    const { title, creator, email, id } = flashcard;
     const { user } = useContext(UserContext);
 
     const areButtonsVisible = email === user?.email;
@@ -42,7 +43,7 @@ const Flashcard = (props: PropsInterface) => {
                         </TouchableOpacity>
                         <TouchableOpacity
                             className="border p-2 rounded-xl px-4 border-gray-400 bg-red-500"
-                            onPress={handleUserButtons}
+                            onPress={() => onDelete(id)}
                         >
                             <Text className="text-white">Delete</Text>
                         </TouchableOpacity>

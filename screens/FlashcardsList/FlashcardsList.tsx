@@ -12,10 +12,17 @@ import {
     FlashcardInterface,
     SnapshotFlashcard,
 } from '../../interfaces/flashcards';
-import { collection, onSnapshot, query } from 'firebase/firestore';
+import {
+    collection,
+    deleteDoc,
+    doc,
+    onSnapshot,
+    query,
+} from 'firebase/firestore';
 import db from '../../firebase/db';
 import Flashcard from './components/Flashcard';
 import UserContext from '../../context/UserContext';
+import { errorAlert } from '../../helpers/errors';
 
 const FlashcardsList = ({
     route,
@@ -52,18 +59,22 @@ const FlashcardsList = ({
 
                 setFlashcards(snapshotArray);
                 setIsLoading(false);
-            } catch (error: any) {
-                Alert.alert(
-                    'Something went wrong',
-                    `${error.msg}. Please contact Ezra Magbanua`,
-                    [{ text: 'OK' }],
-                );
+            } catch (error) {
+                errorAlert(error);
                 setIsLoading(false);
             }
         });
 
         return () => unsubscribe();
     }, [subject, user?.uid]);
+
+    async function handleDelete(id: string) {
+        try {
+            await deleteDoc(doc(db, 'subjects', subject, 'flashcards', id));
+        } catch (error) {
+            errorAlert(error);
+        }
+    }
 
     const renderLoading = isLoading && (
         <View className="flex-row justify-center">
@@ -92,7 +103,11 @@ const FlashcardsList = ({
                     {renderLoading}
                     {renderNoFlashcards}
                     {flashcards.map((flashcard) => (
-                        <Flashcard key={flashcard.id} flashcard={flashcard} />
+                        <Flashcard
+                            key={flashcard.id}
+                            flashcard={flashcard}
+                            onDelete={handleDelete}
+                        />
                     ))}
                 </>
             </ContentWrapper>

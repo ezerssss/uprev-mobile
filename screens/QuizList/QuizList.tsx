@@ -14,10 +14,18 @@ import {
     SnapshotFirebaseQuiz,
     SnapshotFirebaseQuizWithScores,
 } from '../../interfaces/quiz';
-import { collection, doc, getDoc, onSnapshot, query } from 'firebase/firestore';
+import {
+    collection,
+    deleteDoc,
+    doc,
+    getDoc,
+    onSnapshot,
+    query,
+} from 'firebase/firestore';
 import db from '../../firebase/db';
 import Quiz from './components/Quiz';
 import UserContext from '../../context/UserContext';
+import { errorAlert } from '../../helpers/errors';
 
 const QuizList = ({
     route,
@@ -72,18 +80,22 @@ const QuizList = ({
 
                 setQuizzes(snapshotArray);
                 setIsLoading(false);
-            } catch (error: any) {
-                Alert.alert(
-                    'Something went wrong',
-                    `${error.msg}. Please contact Ezra Magbanua`,
-                    [{ text: 'OK' }],
-                );
+            } catch (error) {
+                errorAlert(error);
                 setIsLoading(false);
             }
         });
 
         return () => unsubscribe();
     }, [subject, user?.uid]);
+
+    async function handleDelete(id: string) {
+        try {
+            await deleteDoc(doc(db, 'subjects', subject, 'quizzes', id));
+        } catch (error) {
+            errorAlert(error);
+        }
+    }
 
     const renderLoading = isLoading && (
         <View className="flex-row justify-center">
@@ -112,7 +124,11 @@ const QuizList = ({
                     {renderLoading}
                     {renderNoQuizzes}
                     {quizzes.map((quiz) => (
-                        <Quiz key={quiz.id} quiz={quiz} />
+                        <Quiz
+                            key={quiz.id}
+                            quiz={quiz}
+                            onDelete={handleDelete}
+                        />
                     ))}
                 </>
             </ContentWrapper>
