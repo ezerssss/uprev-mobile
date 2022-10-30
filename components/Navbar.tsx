@@ -12,8 +12,8 @@ const Navbar = () => {
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-    function handleLogout() {
-        auth.signOut();
+    async function handleLogout() {
+        await auth.signOut();
         navigation.navigate('Login');
     }
 
