@@ -6,10 +6,11 @@ import UserContext from '../../../context/UserContext';
 interface PropsInterface {
     quiz: SnapshotFirebaseQuizWithScores;
     onDelete: (id: string) => void;
+    onClick: (id: string) => void;
 }
 
 const Quiz = (props: PropsInterface) => {
-    const { quiz, onDelete } = props;
+    const { quiz, onDelete, onClick } = props;
     const { title, questions, creator, email, userScore, id } = quiz;
     const { user } = useContext(UserContext);
 
@@ -21,10 +22,6 @@ const Quiz = (props: PropsInterface) => {
         </Text>
     );
 
-    function handleQuizClick() {
-        console.log('outside');
-    }
-
     function handleUserButtons() {
         console.log('inside');
     }
@@ -32,7 +29,7 @@ const Quiz = (props: PropsInterface) => {
     return (
         <TouchableOpacity
             className="border p-5 rounded-xl border-gray-300 my-2"
-            onPress={handleQuizClick}
+            onPress={() => onClick(id)}
         >
             <Text className="text-lg font-bold">{title}</Text>
             <Text className="mt-1 text-[12px]">

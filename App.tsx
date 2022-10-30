@@ -9,6 +9,7 @@ import { User } from 'firebase/auth';
 import QuizList from './screens/QuizList/QuizList';
 import FlashcardsList from './screens/FlashcardsList/FlashcardsList';
 import UserContext from './context/UserContext';
+import Quiz from './screens/Quiz/Quiz';
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
@@ -26,6 +27,7 @@ export default function App() {
                     <Navigator>
                         <Screen name="Home" component={Home} />
                         <Screen name="Login" component={Login} />
+                        <Screen name="Quiz" component={Quiz} />
                         <Screen name="QuizList" component={QuizList} />
                         <Screen
                             name="FlashcardList"

@@ -97,6 +97,10 @@ const QuizList = ({
         }
     }
 
+    function handleClick(id: string) {
+        navigation.navigate('Quiz', { subject, id });
+    }
+
     const renderLoading = isLoading && (
         <View className="flex-row justify-center">
             <Text>Loading...</Text>
@@ -128,6 +132,7 @@ const QuizList = ({
                             key={quiz.id}
                             quiz={quiz}
                             onDelete={handleDelete}
+                            onClick={handleClick}
                         />
                     ))}
                 </>
