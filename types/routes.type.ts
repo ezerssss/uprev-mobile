@@ -4,5 +4,8 @@ export type RootStackParamList = {
     CreateQuiz: { isEditing: boolean; id: string; subject: string } | undefined;
     Quiz: { subject: string; id: string };
     QuizList: { subject: string };
+    CreateFlashcard:
+        | { isEditing: boolean; id: string; subject: string }
+        | undefined;
     FlashcardList: { subject: string };
 };

@@ -68,6 +68,14 @@ const FlashcardsList = ({
         return () => unsubscribe();
     }, [subject, user?.uid]);
 
+    function handleEdit(id: string) {
+        navigation.navigate('CreateFlashcard', {
+            subject,
+            id,
+            isEditing: true,
+        });
+    }
+
     async function handleDelete(id: string) {
         try {
             await deleteDoc(doc(db, 'subjects', subject, 'flashcards', id));
@@ -106,6 +114,7 @@ const FlashcardsList = ({
                         <Flashcard
                             key={flashcard.id}
                             flashcard={flashcard}
+                            onEdit={handleEdit}
                             onDelete={handleDelete}
                         />
                     ))}

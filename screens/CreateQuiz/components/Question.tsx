@@ -66,7 +66,7 @@ const Question = (props: PropsInterface) => {
                 <TextInput
                     multiline
                     key={`${number}_${index}`}
-                    className="border rounded outline-none mt-2 p-2 w-full"
+                    className="border rounded outline-none mt-2 p-2 flex-1"
                     placeholder={`Choice ${index + 1}`}
                     value={choice}
                     onChangeText={(text) => onEditChoices(text, number, index)}
@@ -86,7 +86,7 @@ const Question = (props: PropsInterface) => {
         <View className="border p-3 flex-1 min-h-[80px] text-sm rounded-3xl my-3">
             <TextInput
                 multiline
-                className="border outline-none p-2 w-full rounded-xl"
+                className="border p-2 flex-1 lg:flex-none lg:w-1/2 rounded"
                 placeholder={`Enter Question ${questionNumber}`}
                 value={question}
                 onChangeText={(text) =>
@@ -102,7 +102,7 @@ const Question = (props: PropsInterface) => {
                 <Text>Correct Answer:</Text>
                 <TextInput
                     multiline
-                    className="border rounded outline-none p-2 w-full"
+                    className="border rounded outline-none p-2 flex-1"
                     placeholder="Enter Answer"
                     value={answer}
                     onChangeText={(text) =>
@@ -111,7 +111,7 @@ const Question = (props: PropsInterface) => {
                 />
             </View>
             <TouchableOpacity
-                className="mt-4 mb-2 p-2 border rounded-xl w-20"
+                className="mt-4 mb-2 p-2 border rounded-xl w-20 bg-red-300"
                 onPress={() => onDelete(questionNumber)}
             >
                 <Text className="text-center">Delete</Text>

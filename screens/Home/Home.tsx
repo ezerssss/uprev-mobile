@@ -25,6 +25,10 @@ function Home() {
         navigation.navigate('QuizList', { subject });
     }
 
+    function handleCreateFlashcards() {
+        navigation.navigate('CreateFlashcard');
+    }
+
     function handleCreateQuiz() {
         navigation.navigate('CreateQuiz');
     }
@@ -75,7 +79,10 @@ function Home() {
                     </Text>
                     <Text className="text-center">Post your own</Text>
                     <View className="flex-row gap-2 items-center justify-center mt-3">
-                        <TouchableOpacity className="rounded-xl p-4 border">
+                        <TouchableOpacity
+                            className="rounded-xl p-4 border"
+                            onPress={handleCreateFlashcards}
+                        >
                             <Text className="text-center font-bold">
                                 Flashcard
                             </Text>
