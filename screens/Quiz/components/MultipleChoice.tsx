@@ -42,7 +42,7 @@ const MultipleChoice = (props: PropsInterface) => {
                         <TouchableOpacity
                             disabled={showAnswers || !choice}
                             key={`${choice}_${index}`}
-                            className={`border p-2 rounded-xl w-[47%] ${
+                            className={`border p-2 rounded-xl w-[45%] ${
                                 isSelected && !showAnswers && 'bg-slate-500'
                             } ${isSelectedWrong && 'bg-red-500'} ${
                                 isChoiceCorrectAnswer && 'bg-green-500'
