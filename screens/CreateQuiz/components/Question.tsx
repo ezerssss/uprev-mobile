@@ -1,7 +1,7 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { Quiz } from '../../interfaces/quiz';
-import { QuestionType } from '../../types/question.types';
+import { Quiz } from '../../../interfaces/quiz';
+import { QuestionType } from '../../../types/question.types';
 import {
     ListBulletIcon,
     PencilIcon,

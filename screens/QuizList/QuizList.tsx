@@ -89,6 +89,10 @@ const QuizList = ({
         return () => unsubscribe();
     }, [subject, user?.uid]);
 
+    function handleEdit(id: string) {
+        navigation.navigate('CreateQuiz', { subject, id, isEditing: true });
+    }
+
     async function handleDelete(id: string) {
         try {
             await deleteDoc(doc(db, 'subjects', subject, 'quizzes', id));
@@ -131,6 +135,7 @@ const QuizList = ({
                         <Quiz
                             key={quiz.id}
                             quiz={quiz}
+                            onEdit={handleEdit}
                             onDelete={handleDelete}
                             onClick={handleClick}
                         />

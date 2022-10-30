@@ -17,7 +17,7 @@ import { getHighestNumber } from '../../helpers/number';
 import { errorAlert } from '../../helpers/errors';
 import { QuestionType } from '../../types/question.types';
 import { useNavigation } from '@react-navigation/native';
-import Question from './Question';
+import Question from './components/Question';
 
 const CreateQuiz = ({
     route,
@@ -263,6 +263,7 @@ const CreateQuiz = ({
                     <TextInput
                         className="border rounded-xl p-2 flex-1 lg:flex-none lg:w-1/2"
                         placeholder="Enter Title"
+                        value={title}
                         onChangeText={(text) => setTitle(text)}
                     />
                 </View>
