@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Alert,
+    ActivityIndicator,
+} from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import AuthWrapper from '../../components/AuthWrapper';
 import ContentWrapper from '../../components/ContentWrapper';
@@ -86,7 +92,7 @@ const FlashcardsList = ({
 
     const renderLoading = isLoading && (
         <View className="flex-row justify-center">
-            <Text>Loading...</Text>
+            <ActivityIndicator color="black" size="large" />
         </View>
     );
 

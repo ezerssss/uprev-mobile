@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    Alert,
+    ActivityIndicator,
+} from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import { RootStackParamList } from '../../types/routes.type';
 import AuthWrapper from '../../components/AuthWrapper';
@@ -107,7 +113,7 @@ const QuizList = ({
 
     const renderLoading = isLoading && (
         <View className="flex-row justify-center">
-            <Text>Loading...</Text>
+            <ActivityIndicator color="black" size="large" />
         </View>
     );
 

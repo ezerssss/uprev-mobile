@@ -1,4 +1,11 @@
-import { View, Text, TextInput, Alert, TouchableOpacity } from 'react-native';
+import {
+    View,
+    Text,
+    TextInput,
+    Alert,
+    TouchableOpacity,
+    ActivityIndicator,
+} from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import {
     NativeStackNavigationProp,
@@ -229,7 +236,7 @@ const CreateQuiz = ({
     const postButtonText = isEditing ? 'Edit Quiz' : 'Post Quiz';
 
     const renderSubmitButton = isPosting ? (
-        <Text className="text-sm">Loading...</Text>
+        <ActivityIndicator color="black" />
     ) : (
         <Text>{postButtonText}</Text>
     );

@@ -2,7 +2,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { doc, setDoc } from 'firebase/firestore';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import UserContext from '../context/UserContext';
 import { Routes } from '../enums/route.enums';
 import auth from '../firebase/auth';
@@ -82,6 +82,7 @@ function AuthWrapper(props: PropsInterface) {
             <Text className="animate-pulse font-bold text-6xl tracking-wide -mt-5">
                 uprev.
             </Text>
+            <ActivityIndicator color="black" size="large" />
         </View>
     ) : (
         children

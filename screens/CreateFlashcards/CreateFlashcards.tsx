@@ -1,4 +1,11 @@
-import { View, Text, Alert, TextInput, TouchableOpacity } from 'react-native';
+import {
+    View,
+    Text,
+    Alert,
+    TextInput,
+    TouchableOpacity,
+    ActivityIndicator,
+} from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import UserContext from '../../context/UserContext';
 import {
@@ -86,7 +93,7 @@ const CreateFlashcards = ({
     }, [isEditing, id]);
 
     const renderSubmitButton = isPosting ? (
-        <Text className="text-sm">Loading...</Text>
+        <ActivityIndicator color="black" />
     ) : (
         <Text>{postButtonText}</Text>
     );
