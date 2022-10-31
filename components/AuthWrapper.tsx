@@ -32,8 +32,9 @@ function AuthWrapper(props: PropsInterface) {
             const noUser = !user;
 
             if (noUser) {
+                setIsLoading(false);
                 if (route.name === Routes.LOGIN) setIsLoading(false);
-                else navigation.navigate('Login');
+                // else navigation.navigate('Login');
                 return;
             }
 

@@ -90,6 +90,10 @@ const FlashcardsList = ({
         }
     }
 
+    function handleFlashcardClick(id: string) {
+        navigation.navigate('Flashcard', { subject, id });
+    }
+
     const renderLoading = isLoading && (
         <View className="flex-row justify-center">
             <ActivityIndicator color="black" size="large" />
@@ -97,7 +101,7 @@ const FlashcardsList = ({
     );
 
     const renderNoFlashcards = !isLoading && !flashcards.length && (
-        <Text>No Quizzes</Text>
+        <Text>No Flashcards</Text>
     );
 
     return (
@@ -120,6 +124,7 @@ const FlashcardsList = ({
                         <Flashcard
                             key={flashcard.id}
                             flashcard={flashcard}
+                            onClick={handleFlashcardClick}
                             onEdit={handleEdit}
                             onDelete={handleDelete}
                         />

@@ -7,5 +7,6 @@ export type RootStackParamList = {
     CreateFlashcard:
         | { isEditing: boolean; id: string; subject: string }
         | undefined;
+    Flashcard: { subject: string; id: string };
     FlashcardList: { subject: string };
 };

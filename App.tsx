@@ -12,6 +12,7 @@ import UserContext from './context/UserContext';
 import Quiz from './screens/Quiz/Quiz';
 import CreateQuiz from './screens/CreateQuiz/CreateQuiz';
 import CreateFlashcards from './screens/CreateFlashcards/CreateFlashcards';
+import Flashcards from './screens/Flashcards/Flashcards';
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
@@ -36,6 +37,7 @@ export default function App() {
                             name="CreateFlashcard"
                             component={CreateFlashcards}
                         />
+                        <Screen name="Flashcard" component={Flashcards} />
                         <Screen
                             name="FlashcardList"
                             component={FlashcardsList}

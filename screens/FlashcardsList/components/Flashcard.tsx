@@ -5,25 +5,22 @@ import UserContext from '../../../context/UserContext';
 
 interface PropsInterface {
     flashcard: SnapshotFlashcard;
+    onClick: (id: string) => void;
     onEdit: (id: string) => void;
     onDelete: (id: string) => void;
 }
 
 const Flashcard = (props: PropsInterface) => {
-    const { flashcard, onEdit, onDelete } = props;
+    const { flashcard, onClick, onEdit, onDelete } = props;
     const { title, creator, email, id } = flashcard;
     const { user } = useContext(UserContext);
 
     const areButtonsVisible = email === user?.email;
 
-    function handleFlashcardClick() {
-        console.log('outside');
-    }
-
     return (
         <TouchableOpacity
             className="border p-5 rounded-xl border-gray-300 my-2"
-            onPress={handleFlashcardClick}
+            onPress={() => onClick(id)}
         >
             <Text className="text-lg font-bold">{title}</Text>
             <Text className="my-3 text-[12px]">

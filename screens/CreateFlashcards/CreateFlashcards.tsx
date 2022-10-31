@@ -159,7 +159,7 @@ const CreateFlashcards = ({
 
         if (!id || !subject) return;
 
-        navigation.navigate('Quiz', { subject, id });
+        navigation.navigate('Flashcard', { subject, id });
     }
 
     async function handleSubmit() {
