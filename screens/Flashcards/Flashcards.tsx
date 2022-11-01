@@ -115,9 +115,7 @@ const Flashcards = ({
                 >
                     <XMarkIcon color="black" />
                 </TouchableOpacity>
-                <Text className="text-justify text-[14]">
-                    {selectedCardContent}
-                </Text>
+                <Text className="text-[14]">{selectedCardContent}</Text>
             </View>
         </View>
     );

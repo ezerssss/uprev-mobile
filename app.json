@@ -5,7 +5,7 @@
         "owner": "dioskor0",
         "version": "1.0.0",
         "orientation": "portrait",
-        "icon": "./assets/images/logo.png",
+        "icon": "./assets/icon.png",
         "userInterfaceStyle": "light",
         "splash": {
             "image": "./assets/splash.png",
@@ -17,16 +17,23 @@
         },
         "assetBundlePatterns": ["**/*"],
         "ios": {
-            "supportsTablet": true
+            "supportsTablet": true,
+            "bundleIdentifier": "com.dioskor0.uprev"
         },
         "android": {
             "adaptiveIcon": {
-                "foregroundImage": "./assets/adaptive-icon.png",
+                "foregroundImage": "./assets/icon.png",
                 "backgroundColor": "#FFFFFF"
-            }
+            },
+            "package": "com.dioskor0.uprev"
         },
         "web": {
             "favicon": "./assets/favicon.png"
+        },
+        "extra": {
+            "eas": {
+                "projectId": "d2b9540c-5a66-421c-87a8-177037c78662"
+            }
         }
     }
 }

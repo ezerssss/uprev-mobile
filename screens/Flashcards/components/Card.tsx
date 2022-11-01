@@ -1,9 +1,8 @@
-import { View, Text, TouchableOpacity, Animated } from 'react-native';
-import React, { useEffect } from 'react';
+import { Text, Animated, Pressable } from 'react-native';
+import React, { useEffect, useRef } from 'react';
 import { CardsInterface } from '../../../interfaces/flashcards';
 import { FlashcardModeEnum } from '../../../enums/flashcard-mode.enum';
 import { shuffle } from '../../../helpers/shuffle';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 interface PropsInterface {
     card: CardsInterface;
@@ -26,14 +25,16 @@ const Card = (props: PropsInterface) => {
         second = keyword;
     }
 
-    const animatedValue = new Animated.Value(0);
+    const animatedValue = useRef(new Animated.Value(0)).current;
 
     let recordedValue = 0;
 
     useEffect(() => {
-        animatedValue.addListener(({ value }) => {
+        const listenerId = animatedValue.addListener(({ value }) => {
             recordedValue = value;
         });
+
+        return () => animatedValue.removeListener(listenerId);
     }, []);
 
     const frontInterpolate = animatedValue.interpolate({
@@ -57,6 +58,9 @@ const Card = (props: PropsInterface) => {
 
         if (recordedValue <= 90) {
             springValue = 180;
+            recordedValue = 180;
+        } else {
+            recordedValue = 0;
         }
 
         Animated.spring(animatedValue, {
@@ -67,10 +71,23 @@ const Card = (props: PropsInterface) => {
         }).start();
     }
 
+    function handleLongPress() {
+        if (recordedValue <= 90) {
+            onLongPress(first);
+            return;
+        }
+
+        onLongPress(second);
+    }
+
     return (
-        <View className="flex-1 relative">
+        <Pressable
+            className="flex-1 relative rounded-xl overflow-visible"
+            onPress={handleFlip}
+            onLongPress={handleLongPress}
+        >
             <Animated.View
-                className="flex-1 items-center justify-center"
+                className="flex-1 items-center justify-center bg-white border rounded-xl p-4"
                 style={[
                     {
                         backfaceVisibility: 'hidden',
@@ -78,53 +95,24 @@ const Card = (props: PropsInterface) => {
                     frontAnimatedStyle,
                 ]}
             >
-                <TouchableWithoutFeedback
-                    containerStyle={{
-                        flex: 1,
-                        width: '100%',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backgroundColor: 'white',
-                        borderWidth: 1,
-                        borderRadius: 20,
-                        padding: 15,
-                    }}
-                    onLongPress={() => onLongPress(first)}
-                    onPress={handleFlip}
-                >
-                    <Text className="text-center text-base" numberOfLines={7}>
-                        {first}
-                    </Text>
-                </TouchableWithoutFeedback>
+                <Text className="text-center text-base" numberOfLines={7}>
+                    {first}
+                </Text>
             </Animated.View>
             <Animated.View
-                className="flex-1 w-full h-full"
+                className="flex-1 w-full h-full border rounded-xl bg-white absolute items-center justify-center p-4"
                 style={[
-                    { backfaceVisibility: 'hidden', position: 'absolute' },
+                    {
+                        backfaceVisibility: 'hidden',
+                    },
                     backAnimatedStyle,
                 ]}
             >
-                <TouchableWithoutFeedback
-                    containerStyle={{
-                        flex: 1,
-                        width: '100%',
-                        height: '100%',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        backgroundColor: 'white',
-                        borderWidth: 1,
-                        borderRadius: 20,
-                        padding: 15,
-                    }}
-                    onLongPress={() => onLongPress(second)}
-                    onPress={handleFlip}
-                >
-                    <Text className="text-center text-base" numberOfLines={7}>
-                        {second}
-                    </Text>
-                </TouchableWithoutFeedback>
+                <Text className="text-center text-base" numberOfLines={7}>
+                    {second}
+                </Text>
             </Animated.View>
-        </View>
+        </Pressable>
     );
 };
 

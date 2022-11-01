@@ -2,16 +2,13 @@ import * as Google from 'expo-auth-session/providers/google';
 import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
 import React, { useEffect, useRef } from 'react';
 import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
-import * as WebBrowser from 'expo-web-browser';
 import auth from '../../firebase/auth';
 import AuthWrapper from '../../components/AuthWrapper';
-
-WebBrowser.maybeCompleteAuthSession();
 
 const Login = () => {
     const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
         clientId:
-            '737445873573-k6adbdiobhgvfi4m6ll1n1cq7cc9chd0.apps.googleusercontent.com',
+            '737445873573-ejficfrjtfm8i2edka3eh66vkguegdj2.apps.googleusercontent.com',
     });
 
     useEffect(() => {
