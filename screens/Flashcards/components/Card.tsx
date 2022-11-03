@@ -82,7 +82,7 @@ const Card = (props: PropsInterface) => {
 
     return (
         <Pressable
-            className="flex-1 relative rounded-xl overflow-visible"
+            className="flex-1 relative rounded-xl overflow-visible w-full"
             onPress={handleFlip}
             onLongPress={handleLongPress}
         >

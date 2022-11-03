@@ -9,19 +9,13 @@ import AuthWrapper from '../../components/AuthWrapper';
 import ContentWrapper from '../../components/ContentWrapper';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/routes.type';
-import {
-    CardsInterface,
-    FlashcardInterface,
-} from '../../interfaces/flashcards';
+import { FlashcardInterface } from '../../interfaces/flashcards';
 import { doc, getDoc } from 'firebase/firestore';
 import db from '../../firebase/db';
 import { errorAlert } from '../../helpers/errors';
 import { shuffle } from '../../helpers/shuffle';
 import Carousel from 'react-native-reanimated-carousel';
-import {
-    GestureHandlerRootView,
-    TouchableWithoutFeedback,
-} from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { XMarkIcon } from 'react-native-heroicons/outline';
 import Navbar from '../../components/Navbar';
 import Card from './components/Card';
@@ -76,7 +70,20 @@ const Flashcards = ({
 
     const showElements = !!flashcards;
 
-    const renderCarousel = flashcards?.cards && (
+    const renderOneFlashcard = flashcards?.cards.length === 1 && (
+        <View
+            className="items-center flex-1 mb-10 m-auto py-5"
+            style={{ width: 300, height: 300, overflow: 'visible' }}
+        >
+            <Card
+                card={flashcards.cards[0]}
+                mode={mode}
+                onLongPress={handleLongPress}
+            />
+        </View>
+    );
+
+    const renderCarousel = flashcards?.cards && flashcards.cards.length > 1 && (
         <GestureHandlerRootView className="items-center py-5 flex-1 mb-10">
             <Carousel
                 loop
@@ -184,6 +191,7 @@ const Flashcards = ({
                             <Text>Description First</Text>
                         </TouchableOpacity>
                     </View>
+                    <>{renderOneFlashcard}</>
                     <>{renderCarousel}</>
                 </ContentWrapper>
             </>
