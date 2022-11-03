@@ -187,6 +187,28 @@ const CreateFlashcards = ({
             cards,
         };
 
+        const invalidCards = cards.find((c) => {
+            const isKeywordEmpty = !c.keyword;
+            const isDescriptionEmpty = !c.description;
+
+            return isKeywordEmpty || isDescriptionEmpty;
+        });
+
+        const invalidForm = !object.title || invalidCards;
+
+        if (invalidForm) {
+            Dialog.show({
+                type: ALERT_TYPE.DANGER,
+                title: 'Hold up!',
+                textBody:
+                    'You got some empty text fields. Please fill up all the text inputs.',
+                button: 'Sorry!',
+            });
+            setIsPosting(false);
+
+            return;
+        }
+
         try {
             if (isEditing) {
                 handleEdit(object);
@@ -230,13 +252,15 @@ const CreateFlashcards = ({
                                 setDropdownSelection(value)
                             }
                         >
-                            {subjects.map((s) => (
-                                <Picker.Item
-                                    key={s}
-                                    label={s.toUpperCase()}
-                                    value={s}
-                                />
-                            ))}
+                            {subjects
+                                .filter((s) => !!s)
+                                .map((s) => (
+                                    <Picker.Item
+                                        key={s}
+                                        label={s.toUpperCase()}
+                                        value={s}
+                                    />
+                                ))}
                         </Picker>
                     </View>
                 </View>
