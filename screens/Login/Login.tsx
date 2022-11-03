@@ -4,6 +4,9 @@ import React, { useEffect, useRef } from 'react';
 import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
 import auth from '../../firebase/auth';
 import AuthWrapper from '../../components/AuthWrapper';
+import * as WebBrowser from 'expo-web-browser';
+
+WebBrowser.maybeCompleteAuthSession();
 
 const Login = () => {
     const [request, response, promptAsync] = Google.useIdTokenAuthRequest({

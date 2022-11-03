@@ -9,6 +9,7 @@ import auth from '../firebase/auth';
 import db from '../firebase/db';
 import { User } from '../interfaces/user';
 import { RootStackParamList } from '../types/routes.type';
+import { AlertNotificationRoot } from 'react-native-alert-notification';
 
 interface PropsInterface {
     children: JSX.Element;
@@ -85,7 +86,7 @@ function AuthWrapper(props: PropsInterface) {
             <ActivityIndicator color="black" size="large" />
         </View>
     ) : (
-        children
+        <AlertNotificationRoot>{children}</AlertNotificationRoot>
     );
 
     return <>{render}</>;

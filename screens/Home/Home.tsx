@@ -48,14 +48,12 @@ function Home() {
                 <View className="flex-row gap-2 max-w-[500] m-auto  justify-center">
                     {['math 18', 'cmsc 11', 'cmsc 56'].map((subject, index) => (
                         <TouchableOpacity
+                            className="flex-1 max-w-[31%] aspect-square border rounded-2xl flex justify-center items-center"
                             disabled={!subject}
                             key={`${subject},${index}`}
-                            className="flex-1 max-w-[31%] aspect-square border rounded-2xl flex justify-center items-center"
                             onPress={() => handleSubjectClick(subject)}
                         >
-                            <View>
-                                <Text>{subject.toUpperCase()}</Text>
-                            </View>
+                            <Text>{subject.toUpperCase()}</Text>
                         </TouchableOpacity>
                     ))}
                 </View>
@@ -67,18 +65,21 @@ function Home() {
                             className="flex-1 max-w-[31%] aspect-square border rounded-2xl flex justify-center items-center"
                             onPress={() => handleSubjectClick(subject)}
                         >
-                            <View>
-                                <Text>{subject.toUpperCase()}</Text>
-                            </View>
+                            <Text>{subject.toUpperCase()}</Text>
                         </TouchableOpacity>
                     ))}
                 </View>
                 <View className="mt-16 mb-10">
-                    <Text className="text-center">
-                        Want to help your fellow students?
+                    <Text className="text-center font-bold">
+                        Help others review! Make your own:
                     </Text>
-                    <Text className="text-center">Post your own</Text>
-                    <View className="flex-row gap-2 items-center justify-center mt-3">
+                    <View className="flex-row gap-2 items-center justify-center mt-1">
+                        <TouchableOpacity
+                            className="rounded-xl p-4 border"
+                            onPress={handleCreateQuiz}
+                        >
+                            <Text className="text-center font-bold">Quiz</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity
                             className="rounded-xl p-4 border"
                             onPress={handleCreateFlashcards}
@@ -87,17 +88,6 @@ function Home() {
                                 Flashcard
                             </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            className="rounded-xl p-4 border"
-                            onPress={handleCreateQuiz}
-                        >
-                            <Text className="text-center font-bold">Quiz</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View className="flex-row items-center justify-center gap-4 mt-1">
-                        <ListBulletIcon color="black" />
-                        <PencilIcon color="black" />
-                        <CodeBracketIcon color="black" />
                     </View>
                 </View>
             </ContentWrapper>

@@ -1,10 +1,4 @@
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    Alert,
-    ActivityIndicator,
-} from 'react-native';
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import { RootStackParamList } from '../../types/routes.type';
 import AuthWrapper from '../../components/AuthWrapper';

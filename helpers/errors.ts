@@ -1,4 +1,4 @@
-import { Alert } from 'react-native';
+import { Dialog, ALERT_TYPE } from 'react-native-alert-notification';
 
 export function errorAlert(error: unknown) {
     console.error(error);
@@ -8,13 +8,12 @@ export function errorAlert(error: unknown) {
         errorMsg = error.message;
     }
 
-    Alert.alert(
-        'Something went wrong',
-        `${errorMsg}${errorMsg && '.\n\n'}Please contact Ezra Magbanua.`,
-        [
-            {
-                text: 'OK',
-            },
-        ],
-    );
+    Dialog.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Oops! Something went wrong.',
+        textBody: `${errorMsg}${
+            errorMsg && '.\n\n'
+        }Please contact Ezra Magbanua.`,
+        button: 'Ok.',
+    });
 }

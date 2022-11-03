@@ -22,9 +22,13 @@ const Identification = (props: PropsInterface) => {
             <TextInput
                 multiline
                 className={`p-2 border rounded-xl w-full lg:w-1/2 ${
-                    showAnswers && isAnswerCorrect && 'bg-green-300 text-white'
+                    showAnswers &&
+                    isAnswerCorrect &&
+                    'bg-green-400 text-white font-bold'
                 } ${
-                    showAnswers && !isAnswerCorrect && 'bg-red-300 text-white'
+                    showAnswers &&
+                    !isAnswerCorrect &&
+                    'bg-red-400 text-white font-bold'
                 }`}
                 editable={!showAnswers}
                 placeholder="Enter answer"

@@ -2,7 +2,6 @@ import {
     View,
     Text,
     TextInput,
-    Alert,
     TouchableOpacity,
     ActivityIndicator,
 } from 'react-native';
@@ -25,6 +24,7 @@ import { errorAlert } from '../../helpers/errors';
 import { QuestionType } from '../../types/question.types';
 import { useNavigation } from '@react-navigation/native';
 import Question from './components/Question';
+import { ALERT_TYPE, Dialog, Toast } from 'react-native-alert-notification';
 
 const CreateQuiz = ({
     route,
@@ -191,9 +191,12 @@ const CreateQuiz = ({
     async function handleSubmitButton() {
         setIsPosting(true);
         if (!isUpEmail) {
-            Alert.alert('Oops.', 'To post a quiz, you must use your UP email', [
-                { text: 'OK' },
-            ]);
+            Dialog.show({
+                type: ALERT_TYPE.WARNING,
+                title: 'Wait a minute!',
+                textBody: 'To post your quiz, you must use your UP email',
+                button: 'Ok.',
+            });
             setIsPosting(false);
 
             return;
@@ -218,9 +221,13 @@ const CreateQuiz = ({
 
             const popUpText = isEditing ? 'Quiz Edited' : 'Quiz Posted';
 
-            Alert.alert(popUpText, 'Click "OK" to redirect to the quiz', [
-                { text: 'OK', onPress: () => handleRedirectToQuiz(id) },
-            ]);
+            Dialog.show({
+                type: ALERT_TYPE.SUCCESS,
+                title: 'Success',
+                textBody: `${popUpText}. Click the button to redirect to the quiz page.`,
+                button: 'Redirect',
+                onPressButton: () => handleRedirectToQuiz(id),
+            });
         } catch (error) {
             errorAlert(error);
             setIsPosting(false);

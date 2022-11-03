@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import AuthWrapper from '../../components/AuthWrapper';
 import ContentWrapper from '../../components/ContentWrapper';
@@ -19,6 +19,7 @@ import { errorAlert } from '../../helpers/errors';
 import { useNavigation } from '@react-navigation/native';
 import Identification from './components/Identification';
 import MultipleChoice from './components/MultipleChoice';
+import { ALERT_TYPE, Dialog, Toast } from 'react-native-alert-notification';
 
 const Quiz = ({
     route,
@@ -138,12 +139,20 @@ const Quiz = ({
         const isScoreGreaterThanHalf =
             score >= Math.floor(quizLength / 2) && score !== 0;
         const isPerfect = score === quizLength;
+        const type = isScoreGreaterThanHalf
+            ? ALERT_TYPE.SUCCESS
+            : ALERT_TYPE.WARNING;
         const title = isScoreGreaterThanHalf ? 'Congrats!' : 'Oh no!';
         const text = isPerfect
             ? 'You Aced the quiz!'
             : `Your scored ${score} for this quiz.`;
 
-        Alert.alert(title, text, [{ text: 'OK' }]);
+        Dialog.show({
+            type,
+            title,
+            textBody: text,
+            button: 'Ok.',
+        });
         setShowAnswers(true);
 
         return score;
@@ -178,11 +187,12 @@ const Quiz = ({
             if (isUpEmail) {
                 handleStoreScore(score);
             } else {
-                Alert.alert(
-                    'Oops.',
-                    'Scores are not recorded for non UP emails.',
-                    [{ text: 'OK' }],
-                );
+                Toast.show({
+                    type: ALERT_TYPE.WARNING,
+                    title: 'Wait a minute!',
+                    textBody:
+                        'Scores and answers are not recorded for non UP emails.',
+                });
             }
         }
     }
@@ -226,7 +236,7 @@ const Quiz = ({
                 </>
                 <>{renderQuestions}</>
                 <View className="mt-8 mb-16">
-                    {showElements && (
+                    {showElements && !isAlreadyTaken && !showAnswers && (
                         <TouchableOpacity
                             className="p-3 border bg-green-300 rounded-xl w-32"
                             disabled={!quiz?.questions.length || isAlreadyTaken}

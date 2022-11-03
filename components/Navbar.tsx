@@ -38,13 +38,12 @@ const Navbar = () => {
                     </Text>
                 </View>
             </TouchableOpacity>
-            <View className="flex-row gap-1 items-center">
-                <TouchableOpacity onPress={handleBack}>
-                    <ChevronLeftIcon color="black" />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                    <ChevronRightIcon color="black" />
-                </TouchableOpacity>
+            <View className="flex-row gap-5 items-center">
+                <View className="flex-row">
+                    <TouchableOpacity onPress={handleBack}>
+                        <ChevronLeftIcon color="black" />
+                    </TouchableOpacity>
+                </View>
                 <TouchableOpacity onPress={handleLogout}>
                     <Text>Logout</Text>
                 </TouchableOpacity>

@@ -1,7 +1,6 @@
 import {
     View,
     Text,
-    Alert,
     TextInput,
     TouchableOpacity,
     ActivityIndicator,
@@ -25,6 +24,7 @@ import AuthWrapper from '../../components/AuthWrapper';
 import ContentWrapper from '../../components/ContentWrapper';
 import { Picker } from '@react-native-picker/picker';
 import Flashcard from './components/Flashcard';
+import { ALERT_TYPE, Dialog } from 'react-native-alert-notification';
 
 const CreateFlashcards = ({
     route,
@@ -165,9 +165,12 @@ const CreateFlashcards = ({
     async function handleSubmit() {
         setIsPosting(true);
         if (!isUpEmail) {
-            Alert.alert('Oops.', 'To post a quiz, you must use your UP email', [
-                { text: 'OK' },
-            ]);
+            Dialog.show({
+                type: ALERT_TYPE.WARNING,
+                title: 'Wait a minute!',
+                textBody: 'To post your flashcards, you must use your UP email',
+                button: 'Ok.',
+            });
             setIsPosting(false);
 
             return;
@@ -194,9 +197,13 @@ const CreateFlashcards = ({
                 ? 'Flashcards Edited'
                 : 'Flashcards Posted';
 
-            Alert.alert(popUpText, 'Click "OK" to redirect to the flashcards', [
-                { text: 'OK', onPress: () => handleRedirectToFlashcard(id) },
-            ]);
+            Dialog.show({
+                type: ALERT_TYPE.SUCCESS,
+                title: 'Success',
+                textBody: `${popUpText}. Click the button to redirect to the flashcards page.`,
+                button: 'Redirect',
+                onPressButton: () => handleRedirectToFlashcard(id),
+            });
         } catch (error) {
             errorAlert(error);
             setIsPosting(false);

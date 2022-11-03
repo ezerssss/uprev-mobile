@@ -44,15 +44,15 @@ const MultipleChoice = (props: PropsInterface) => {
                             key={`${choice}_${index}`}
                             className={`border p-2 rounded-xl w-[45%] ${
                                 isSelected && !showAnswers && 'bg-slate-300'
-                            } ${isSelectedWrong && 'bg-red-300'} ${
-                                isChoiceCorrectAnswer && 'bg-green-300'
+                            } ${isSelectedWrong && 'bg-red-400'} ${
+                                isChoiceCorrectAnswer && 'bg-green-400'
                             }`}
                             onPress={() => onAnswer(choice, number)}
                         >
                             <Text
                                 className={`${
                                     isSelected && showAnswers && 'text-white'
-                                }`}
+                                } ${isChoiceCorrectAnswer && 'text-white'}`}
                             >
                                 {choice}
                             </Text>
