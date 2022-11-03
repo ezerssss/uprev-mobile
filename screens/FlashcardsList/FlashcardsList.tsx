@@ -101,7 +101,7 @@ const FlashcardsList = ({
     );
 
     const renderNoFlashcards = !isLoading && !flashcards.length && (
-        <Text>No Flashcards</Text>
+        <Text className="text-lg mt-5">No flashcards found.</Text>
     );
 
     return (

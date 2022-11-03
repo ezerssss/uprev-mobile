@@ -25,6 +25,7 @@ import { QuestionType } from '../../types/question.types';
 import { useNavigation } from '@react-navigation/native';
 import Question from './components/Question';
 import { ALERT_TYPE, Dialog, Toast } from 'react-native-alert-notification';
+import ConfigContext from '../../context/ConfigContext';
 
 const CreateQuiz = ({
     route,
@@ -37,6 +38,8 @@ const CreateQuiz = ({
         id = route.params.id;
         subject = route.params.subject;
     }
+
+    const { subjects } = useContext(ConfigContext);
 
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -265,10 +268,13 @@ const CreateQuiz = ({
                                 setDropdownSelection(value)
                             }
                         >
-                            <Picker.Item label="MATH 18" value="math 18" />
-                            <Picker.Item label="CMSC 10" value="cmsc 10" />
-                            <Picker.Item label="CMSC 11" value="cmsc 11" />
-                            <Picker.Item label="CMSC 56" value="cmsc 56" />
+                            {subjects.map((s) => (
+                                <Picker.Item
+                                    key={s}
+                                    label={s.toUpperCase()}
+                                    value={s}
+                                />
+                            ))}
                         </Picker>
                     </View>
                 </View>

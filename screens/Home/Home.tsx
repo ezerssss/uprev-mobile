@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useContext, useEffect, useState } from 'react';
 import {
     Image,
     useWindowDimensions,
@@ -7,16 +8,14 @@ import {
     View,
     TouchableOpacity,
 } from 'react-native';
-import {
-    CodeBracketIcon,
-    ListBulletIcon,
-    PencilIcon,
-} from 'react-native-heroicons/outline';
 import AuthWrapper from '../../components/AuthWrapper';
 import ContentWrapper from '../../components/ContentWrapper';
+import ConfigContext from '../../context/ConfigContext';
 import { RootStackParamList } from '../../types/routes.type';
 
 function Home() {
+    const { subjects } = useContext(ConfigContext);
+
     const { height } = useWindowDimensions();
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -46,7 +45,7 @@ function Home() {
                     Let's review together.
                 </Text>
                 <View className="flex-row gap-2 max-w-[500] m-auto  justify-center">
-                    {['math 18', 'cmsc 11', 'cmsc 56'].map((subject, index) => (
+                    {subjects.slice(0, 3).map((subject, index) => (
                         <TouchableOpacity
                             className="flex-1 max-w-[31%] aspect-square border rounded-2xl flex justify-center items-center"
                             disabled={!subject}
@@ -58,7 +57,7 @@ function Home() {
                     ))}
                 </View>
                 <View className="flex-row gap-2 mt-2 max-w-[500] m-auto justify-center">
-                    {['cmsc 10', '', ''].map((subject, index) => (
+                    {subjects.slice(3, 6).map((subject, index) => (
                         <TouchableOpacity
                             disabled={!subject}
                             key={`${subject},${index}`}
@@ -69,8 +68,8 @@ function Home() {
                         </TouchableOpacity>
                     ))}
                 </View>
-                <View className="mt-16 mb-10">
-                    <Text className="text-center font-bold">
+                <View className="mt-8 mb-10">
+                    <Text className="text-center font-bold text-lg">
                         Help others review! Make your own:
                     </Text>
                     <View className="flex-row gap-2 items-center justify-center mt-1">

@@ -112,7 +112,7 @@ const QuizList = ({
     );
 
     const renderNoQuizzes = !isLoading && !quizzes.length && (
-        <Text>No Quizzes</Text>
+        <Text className="text-lg mt-5">No quizzes found.</Text>
     );
 
     return (
