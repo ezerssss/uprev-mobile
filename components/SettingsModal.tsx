@@ -96,7 +96,7 @@ const SettingsModal = (props: PropsInterface) => {
                 title: 'Success!',
                 textBody: 'Subjects on your home page are now updated.',
                 button: 'Ok.',
-                onPressButton: onCloseModal,
+                onPressButton: () => onCloseModal(),
             });
         } catch (error) {
             errorAlert(error);
