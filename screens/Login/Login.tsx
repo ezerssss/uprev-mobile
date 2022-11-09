@@ -1,10 +1,25 @@
 import * as Google from 'expo-auth-session/providers/google';
-import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
-import React, { useEffect, useRef } from 'react';
-import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
+import {
+    GoogleAuthProvider,
+    OAuthCredential,
+    signInWithCredential,
+} from 'firebase/auth';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    Animated,
+    ActivityIndicator,
+} from 'react-native';
 import auth from '../../firebase/auth';
 import AuthWrapper from '../../components/AuthWrapper';
 import * as WebBrowser from 'expo-web-browser';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../types/routes.type';
+import { errorAlert } from '../../helpers/errors';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -13,12 +28,23 @@ const Login = () => {
         clientId:
             '737445873573-ejficfrjtfm8i2edka3eh66vkguegdj2.apps.googleusercontent.com',
     });
+    const navigation =
+        useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
+        async function handleSignIn(credential: OAuthCredential) {
+            await signInWithCredential(auth, credential);
+            navigation.navigate('Home');
+        }
+
         if (response?.type === 'success') {
+            setIsLoading(true);
             const { id_token } = response.params;
             const credential = GoogleAuthProvider.credential(id_token);
-            signInWithCredential(auth, credential);
+            handleSignIn(credential);
+        } else if (response?.type === 'error') {
+            errorAlert(response.error);
         }
     }, [response]);
 
@@ -74,7 +100,12 @@ const Login = () => {
                         <TouchableOpacity
                             className="py-3 px-8 border rounded-2xl"
                             disabled={!request}
-                            onPress={() => promptAsync()}
+                            onPress={() =>
+                                promptAsync({
+                                    useProxy: false,
+                                    showInRecents: true,
+                                })
+                            }
                         >
                             <Text className="text-center text-lg">
                                 Sign in with Google
@@ -84,6 +115,13 @@ const Login = () => {
                             Sign in with your @up.edu.ph email
                         </Text>
                     </Animated.View>
+                    {isLoading && (
+                        <ActivityIndicator
+                            className="mt-5"
+                            color="black"
+                            size="large"
+                        />
+                    )}
                 </View>
             </View>
         </AuthWrapper>

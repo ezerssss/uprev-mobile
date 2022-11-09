@@ -17,7 +17,6 @@ import { shuffle } from '../../helpers/shuffle';
 import Carousel from 'react-native-reanimated-carousel';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { XMarkIcon } from 'react-native-heroicons/outline';
-import Navbar from '../../components/Navbar';
 import Card from './components/Card';
 import { FlashcardModeEnum } from '../../enums/flashcard-mode.enum';
 
@@ -90,18 +89,17 @@ const Flashcards = ({
                 snapEnabled
                 pagingEnabled
                 data={flashcards.cards}
-                mode="horizontal-stack"
-                modeConfig={{
-                    snapDirection: 'right',
-                    stackInterval: 18,
+                style={{
+                    overflow: 'visible',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                 }}
-                style={{ overflow: 'visible' }}
                 width={300}
                 height={300}
-                renderItem={({ index }) => (
+                renderItem={({ item }) => (
                     <Card
-                        key={index}
-                        card={flashcards.cards[index]}
+                        key={item.number}
+                        card={item}
                         mode={mode}
                         onLongPress={handleLongPress}
                     />

@@ -44,7 +44,7 @@ const CreateQuiz = ({
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-    const { user, isUpEmail } = useContext(UserContext);
+    const { user, isEmailWhitelisted } = useContext(UserContext);
     const [number, setNumber] = useState<number>(1);
     const [questions, setQuestions] = useState<Quiz[]>([defaultQuestion]);
     const [isPosting, setIsPosting] = useState<boolean>(false);
@@ -193,11 +193,12 @@ const CreateQuiz = ({
 
     async function handleSubmitButton() {
         setIsPosting(true);
-        if (!isUpEmail) {
+        if (!isEmailWhitelisted) {
             Dialog.show({
                 type: ALERT_TYPE.WARNING,
                 title: 'Wait a minute!',
-                textBody: 'To post your quiz, you must use your UP email',
+                textBody:
+                    'To post your quiz, you must use a whitelisted email.',
                 button: 'Ok.',
             });
             setIsPosting(false);

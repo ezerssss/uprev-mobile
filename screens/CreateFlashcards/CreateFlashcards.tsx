@@ -43,7 +43,7 @@ const CreateFlashcards = ({
 
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-    const { user, isUpEmail } = useContext(UserContext);
+    const { user, isEmailWhitelisted } = useContext(UserContext);
     const [title, setTitle] = useState<string>('');
     const [cards, setCards] = useState<CardsInterface[]>([
         {
@@ -167,11 +167,12 @@ const CreateFlashcards = ({
 
     async function handleSubmit() {
         setIsPosting(true);
-        if (!isUpEmail) {
+        if (!isEmailWhitelisted) {
             Dialog.show({
                 type: ALERT_TYPE.WARNING,
                 title: 'Wait a minute!',
-                textBody: 'To post your flashcards, you must use your UP email',
+                textBody:
+                    'To post your flashcards, you must use a whitelisted email.',
                 button: 'Ok.',
             });
             setIsPosting(false);
