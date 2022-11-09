@@ -3,7 +3,7 @@
         "name": "uprev",
         "slug": "uprev",
         "owner": "dioskor0",
-        "version": "3.1.0",
+        "version": "1.1.0",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "light",
@@ -26,7 +26,7 @@
                 "backgroundColor": "#FFFFFF"
             },
             "package": "com.dioskor0.uprev",
-            "versionCode": 3.1
+            "versionCode": 4
         },
         "web": {
             "favicon": "./assets/favicon.ico"
