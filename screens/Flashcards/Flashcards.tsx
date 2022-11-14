@@ -95,6 +95,7 @@ const Flashcards = ({
                     alignItems: 'center',
                 }}
                 width={300}
+                windowSize={2}
                 height={300}
                 renderItem={({ item }) => (
                     <Card
