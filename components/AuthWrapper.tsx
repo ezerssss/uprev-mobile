@@ -1,6 +1,6 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import UserContext from '../context/UserContext';
@@ -9,6 +9,7 @@ import auth from '../firebase/auth';
 import db from '../firebase/db';
 import { User } from '../interfaces/user';
 import { RootStackParamList } from '../types/routes.type';
+import { AlertNotificationRoot } from 'react-native-alert-notification';
 
 interface PropsInterface {
     children: JSX.Element;
@@ -17,7 +18,7 @@ interface PropsInterface {
 function AuthWrapper(props: PropsInterface) {
     const { children } = props;
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const { setUser, setIsEmailWhitelisted } = useContext(UserContext);
+    const { setUser, setIsUpEmail } = useContext(UserContext);
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -37,21 +38,14 @@ function AuthWrapper(props: PropsInterface) {
                 return;
             }
 
-            const whitelistDocRef = doc(db, 'config', 'emails');
-            const whitelistData = (await (
-                await getDoc(whitelistDocRef)
-            ).data()) as Record<string, string[]>;
+            const isUpEmail = !!user.email?.includes('@up.edu.ph');
 
-            const isEmailWhitelisted = !!whitelistData.whitelist.find((data) =>
-                user.email?.includes(data),
-            );
-
-            if (setIsEmailWhitelisted) {
-                setIsEmailWhitelisted(isEmailWhitelisted);
+            if (setIsUpEmail) {
+                setIsUpEmail(isUpEmail);
             }
 
             if (route.name === Routes.LOGIN) {
-                if (isEmailWhitelisted) {
+                if (isUpEmail) {
                     const userDocument: User = {
                         displayName: user.displayName || '-',
                         email: user.email || '-',
@@ -92,7 +86,7 @@ function AuthWrapper(props: PropsInterface) {
             <ActivityIndicator color="black" size="large" />
         </View>
     ) : (
-        children
+        <AlertNotificationRoot>{children}</AlertNotificationRoot>
     );
 
     return <>{render}</>;

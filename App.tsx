@@ -15,14 +15,12 @@ import CreateFlashcards from './screens/CreateFlashcards/CreateFlashcards';
 import Flashcards from './screens/Flashcards/Flashcards';
 import { getSubjectsConfig } from './helpers/config';
 import ConfigContext from './context/ConfigContext';
-import { AlertNotificationRoot } from 'react-native-alert-notification';
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
     const [user, setUser] = useState<User | null>(null);
-    const [isEmailWhitelisted, setIsEmailWhitelisted] =
-        useState<boolean>(false);
+    const [isUpEmail, setIsUpEmail] = useState<boolean>(false);
 
     const [subjects, setSubjects] = useState<string[]>([
         '',
@@ -42,52 +40,42 @@ export default function App() {
     }, []);
 
     return (
-        <AlertNotificationRoot>
-            <UserContext.Provider
-                value={{
-                    user,
-                    setUser,
-                    isEmailWhitelisted,
-                    setIsEmailWhitelisted,
-                }}
-            >
-                <ConfigContext.Provider value={{ subjects, setSubjects }}>
-                    <View className="flex-1">
-                        <StatusBar />
-                        <NavigationContainer>
-                            <Navigator>
-                                <Screen name="Home" component={Home} />
-                                <Screen name="Login" component={Login} />
-                                <Screen
-                                    name="CreateQuiz"
-                                    component={CreateQuiz}
-                                    options={{ animation: 'slide_from_left' }}
-                                />
-                                <Screen name="Quiz" component={Quiz} />
-                                <Screen
-                                    name="QuizList"
-                                    component={QuizList}
-                                    options={{ animation: 'slide_from_left' }}
-                                />
-                                <Screen
-                                    name="CreateFlashcard"
-                                    component={CreateFlashcards}
-                                    options={{ animation: 'slide_from_left' }}
-                                />
-                                <Screen
-                                    name="Flashcard"
-                                    component={Flashcards}
-                                />
-                                <Screen
-                                    name="FlashcardList"
-                                    component={FlashcardsList}
-                                    options={{ animation: 'slide_from_left' }}
-                                />
-                            </Navigator>
-                        </NavigationContainer>
-                    </View>
-                </ConfigContext.Provider>
-            </UserContext.Provider>
-        </AlertNotificationRoot>
+        <UserContext.Provider
+            value={{ user, setUser, isUpEmail, setIsUpEmail }}
+        >
+            <ConfigContext.Provider value={{ subjects, setSubjects }}>
+                <View className="flex-1">
+                    <StatusBar />
+                    <NavigationContainer>
+                        <Navigator>
+                            <Screen name="Home" component={Home} />
+                            <Screen name="Login" component={Login} />
+                            <Screen
+                                name="CreateQuiz"
+                                component={CreateQuiz}
+                                options={{ animation: 'slide_from_left' }}
+                            />
+                            <Screen name="Quiz" component={Quiz} />
+                            <Screen
+                                name="QuizList"
+                                component={QuizList}
+                                options={{ animation: 'slide_from_left' }}
+                            />
+                            <Screen
+                                name="CreateFlashcard"
+                                component={CreateFlashcards}
+                                options={{ animation: 'slide_from_left' }}
+                            />
+                            <Screen name="Flashcard" component={Flashcards} />
+                            <Screen
+                                name="FlashcardList"
+                                component={FlashcardsList}
+                                options={{ animation: 'slide_from_left' }}
+                            />
+                        </Navigator>
+                    </NavigationContainer>
+                </View>
+            </ConfigContext.Provider>
+        </UserContext.Provider>
     );
 }

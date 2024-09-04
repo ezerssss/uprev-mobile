@@ -11,8 +11,8 @@ export function errorAlert(error: unknown) {
     Dialog.show({
         type: ALERT_TYPE.DANGER,
         title: 'Oops! Something went wrong.',
-        textBody: `${
-            errorMsg && errorMsg + '\n\n'
+        textBody: `${errorMsg}${
+            errorMsg && '.\n\n'
         }Please contact Ezra Magbanua.`,
         button: 'Ok.',
     });

@@ -1,4 +1,4 @@
-import { Text, Animated, Pressable, View } from 'react-native';
+import { Text, Animated, Pressable } from 'react-native';
 import React, { useEffect, useRef } from 'react';
 import { CardsInterface } from '../../../interfaces/flashcards';
 import { FlashcardModeEnum } from '../../../enums/flashcard-mode.enum';
@@ -82,7 +82,7 @@ const Card = (props: PropsInterface) => {
 
     return (
         <Pressable
-            className="w-[95%] h-[95%] relative rounded-xl"
+            className="flex-1 relative rounded-xl overflow-visible w-full"
             onPress={handleFlip}
             onLongPress={handleLongPress}
         >

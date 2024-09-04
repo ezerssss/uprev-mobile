@@ -25,7 +25,7 @@ const Quiz = ({
     route,
 }: NativeStackScreenProps<RootStackParamList, 'Quiz'>) => {
     const { subject, id } = route.params;
-    const { user, isEmailWhitelisted } = useContext(UserContext);
+    const { user, isUpEmail } = useContext(UserContext);
 
     const navigation =
         useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -184,14 +184,14 @@ const Quiz = ({
         const score = handleCalculateScore();
 
         if (!isAlreadyTaken) {
-            if (isEmailWhitelisted) {
+            if (isUpEmail) {
                 handleStoreScore(score);
             } else {
                 Toast.show({
                     type: ALERT_TYPE.WARNING,
                     title: 'Wait a minute!',
                     textBody:
-                        'Scores and answers are not recorded for not whitelisted emails.',
+                        'Scores and answers are not recorded for non UP emails.',
                 });
             }
         }
