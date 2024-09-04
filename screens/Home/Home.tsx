@@ -77,7 +77,7 @@ function Home() {
                             className="rounded-xl p-4 border"
                             onPress={handleCreateQuiz}
                         >
-                            <Text className="text-center font-bold">Quiz</Text>
+                            <Text className="text-center font-bold">Exams</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             className="rounded-xl p-4 border"
