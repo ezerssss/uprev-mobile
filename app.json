@@ -3,11 +3,7 @@
         "name": "uprev",
         "slug": "uprev",
         "owner": "dioskor0",
-<<<<<<< HEAD
-        "version": "3.3.0",
-=======
-        "version": "2.0.0",
->>>>>>> parent of e9bd237 (3.1)
+        "version": "3.4.0",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "light",
@@ -30,11 +26,7 @@
                 "backgroundColor": "#FFFFFF"
             },
             "package": "com.dioskor0.uprev",
-<<<<<<< HEAD
-            "versionCode": 10
-=======
-            "versionCode": 2
->>>>>>> parent of e9bd237 (3.1)
+            "versionCode": 11
         },
         "web": {
             "favicon": "./assets/favicon.ico"
