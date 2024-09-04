@@ -1,45 +1,55 @@
 {
-  "expo": {
-    "name": "uprev",
-    "slug": "uprev",
-    "owner": "dioskor0",
-    "version": "3.5.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.dioskor0.uprev"
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.dioskor0.uprev",
-      "versionCode": 13
-    },
-    "web": {
-      "favicon": "./assets/favicon.ico"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "d2b9540c-5a66-421c-87a8-177037c78662"
-      }
-    },
-    "plugins": [
-      "expo-build-properties"
-    ]
-  }
+    "expo": {
+        "name": "uprev",
+        "slug": "uprev",
+        "owner": "dioskor0",
+        "version": "3.5.2",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "userInterfaceStyle": "light",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#ffffff"
+        },
+        "updates": {
+            "fallbackToCacheTimeout": 0
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "supportsTablet": true,
+            "bundleIdentifier": "com.dioskor0.uprev"
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/icon.png",
+                "backgroundColor": "#FFFFFF"
+            },
+            "package": "com.dioskor0.uprev",
+            "versionCode": 14
+        },
+        "web": {
+            "favicon": "./assets/favicon.ico"
+        },
+        "extra": {
+            "eas": {
+                "projectId": "d2b9540c-5a66-421c-87a8-177037c78662"
+            }
+        },
+        "plugins": [
+            [
+                "expo-build-properties",
+                {
+                    "android": {
+                        "compileSdkVersion": 34,
+                        "targetSdkVersion": 34,
+                        "buildToolsVersion": "34.0.0"
+                    },
+                    "ios": {
+                        "deploymentTarget": "13.4"
+                    }
+                }
+            ]
+        ]
+    }
 }
